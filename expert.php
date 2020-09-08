@@ -118,9 +118,9 @@ $arr1 = [];
 function combineNames($str1 = "", $str2 = "")
 {
     $params = [$str1, $str2];
-    foreach ($params as &$param) {
+    foreach ($params as $i => &$param) {
         if ($param == "") {
-            $param = randomHeroName();
+            $param = randomHeroName($i);
         }
     }
 
@@ -137,12 +137,12 @@ function randomGenerate($arr1, $amount)
     return $amount;
 }
 
-function randomHeroName()
+function randomHeroName($i)
 {
     $hero_firstnames = ["captain", "doctor", "iron", "Hank", "ant", "Wasp", "the", "Hawk", "Spider", "Black", "Carol"];
     $hero_lastnames = ["America", "Strange", "man", "Pym", "girl", "hulk", "eye", "widow", "panther", "daredevil", "marvel"];
     $heroes = [$hero_firstnames, $hero_lastnames];
-    $randname = $heroes[rand(0, 1)][rand(0, 10)];
+    $randname = $heroes[$i][rand(0, 10)];
 
     return $randname;
 }
@@ -155,10 +155,10 @@ echo "Here is the name: " . combineNames();
  Error:
  Intended results were not displayed.
  Fix:
- Line 133: missing ';'
- Line 121: return instead of an echo
- Line 139: $heroes is a multidimensional array, and it has 2 rows so instead of rand(0,count($heroes) it must be rand(0,1)
- Line 141: return instead of an echo
+ Line 143: missing ';'
+ Line 127: return instead of an echo
+ Line 144: $heroes is a multidimensional array, and it has 2 rows so instead of rand(0,count($heroes) it must be rand(0,1)
+ Line 147: return instead of an echo
 */
 new_exercise(7);
 
@@ -166,12 +166,12 @@ new_exercise(7);
 ///
 ///
 ///
-function copyright($year)
+function copyright(int $year)
 {
     return "&copy; $year BeCode";
 }
 //print the copyright
-echo copyright(date('Y'));
+echo copyright((int) date('Y'));
 
 
 /*
@@ -227,7 +227,7 @@ function isLinkValid(string $link)
     $unacceptables = array('https:', '.doc', '.pdf', '.jpg', '.jpeg', '.gif', '.bmp', '.png');
 
     foreach ($unacceptables as $unacceptable) {
-        if (strpos($link, $unacceptable) == true) {
+        if (strpos($link, $unacceptable) !== false) {
             return 'Unacceptable Found<br />';
         }
     }
@@ -260,14 +260,25 @@ new_exercise(10);
 $areTheseFruits = ['apple', 'bear', 'beef', 'banana', 'cherry', 'tomato', 'car'];
 $validFruits = ['apple', 'pear', 'banana', 'cherry', 'tomato'];
 //from here on you can change the code
-for ($i = 0; $i <= count($areTheseFruits); $i++) {
+foreach ($areTheseFruits as $i => $fruit) {
+    if (!in_array($fruit, $validFruits)) {
+        unset($areTheseFruits[$i]);
+    }
+}
+/*
+Alternate way to do the same
+$length = count($areTheseFruits);
+for ($i = 0; $i < $length; $i++) {
+    echo $i . '<br>';
     if (!in_array($areTheseFruits[$i], $validFruits)) {
         unset($areTheseFruits[$i]);
     }
 }
+*/
 var_dump($areTheseFruits); //do not change this
 
 
+new_exercise("Bonus round");
 // Bonus round
 // Below are 5 characters (the space included)
 // Find out why the substring with limit 10 still shortens the string, and what might be a solution (not easy)
@@ -275,4 +286,4 @@ $str = "안녕 세상";
 echo mb_substr($str, 0, 10);
 
 // $str is not a single-byte string (e.g. US-ASCII, ISO 8859 family, etc.) 
-// rather it has multi-byte characters (e.g. UTF-8, UTF-16, etc.), therefore we should use mb_substr() instead.
+// rather it has multi-byte characters (e.g. UTF-8, UTF-16, etc.), therefore we should use mb_substr() instead that supports multi-byte characters.
