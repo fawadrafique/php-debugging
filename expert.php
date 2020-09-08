@@ -128,14 +128,14 @@ function combineNames($str1 = "", $str2 = "")
 }
 
 
-function randomGenerate($arr1, $amount)
-{
-    for ($i = $amount; $i > 0; $i--) {
-        array_push($arr1, randomHeroName());
-    }
+// function randomGenerate($arr1, $amount)
+// {
+//     for ($i = $amount; $i > 0; $i--) {
+//         array_push($arr1, randomHeroName());
+//     }
 
-    return $amount;
-}
+//     return $amount;
+// }
 
 function randomHeroName($i)
 {
@@ -157,7 +157,7 @@ echo "Here is the name: " . combineNames();
  Fix:
  Line 143: missing ';'
  Line 127: return instead of an echo
- Line 144: $heroes is a multidimensional array, and it has 2 rows so instead of rand(0,count($heroes) it must be rand(0,1)
+ Line 145: $heroes is a multidimensional array, and it has 2 rows so instead of rand(0,count($heroes) it must be rand(0,1)
  Line 147: return instead of an echo
 */
 new_exercise(7);
@@ -179,8 +179,8 @@ echo copyright((int) date('Y'));
  Error:
  Uncaught TypeError: Argument 1 passed to copyright() must be of the type int, string given
  Fix:
- Line 160: remove int from function arguments
- Line 165: add echo ahead of funtion to output the results
+ Line 174: add echo ahead of funtion to output the results
+ and add (int) within function parameters to change string to int type
 */
 new_exercise(8);
 
@@ -211,8 +211,8 @@ echo login('wrong@example', 'wrong');
  Error:
  There were no errors but result were not as expected
  Fix:
- Line 183: 2 return statements, can be combined as one return
- Line 181: Only John Smith can access, therefore changed or operator '||' to and operator &&
+ Line 195: 2 return statements, can be combined as one return
+ Line 193: Only John Smith can access, therefore changed or operator '||' to and operator &&
  <br /> added to echo on new line
 */
 new_exercise(9);
@@ -248,7 +248,8 @@ echo isLinkValid('http://google.com/test.txt');
  Error:
  White screen
  Fix:
- Line 223, 225, 227 and 229: Return value from functions, thus add echo in front of every function call
+ Line 230: strpos() doesnot return true, therefore change operator to !== false 
+ Line 237, 239, 241 and 243: Return value from functions, thus add echo in front of every function call
 */
 new_exercise(10);
 
@@ -276,7 +277,15 @@ for ($i = 0; $i < $length; $i++) {
 }
 */
 var_dump($areTheseFruits); //do not change this
-
+/*
+ How I fixed the error in exercise 10?
+ Error:
+ car also prints as valid fruit
+ Fix:
+ as unset() reindexes the $areTheseFruits array, 
+ either use foreach loop or save the length of $areTheseFruits to another variable
+ and use that within loop parameters  
+*/
 
 new_exercise("Bonus round");
 // Bonus round
